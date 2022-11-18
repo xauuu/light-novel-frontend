@@ -1,6 +1,6 @@
 import React from "react";
 import "./ChapterDetail.scss";
-import { Col, Row } from "react-bootstrap";
+import Grid from "@material-ui/core/Grid";
 import PopularSection from "./../Section/PopularSection";
 import { NavLink, useParams } from "react-router-dom";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineFormatListBulleted, MdSettings } from "react-icons/md";
@@ -14,8 +14,8 @@ const ChapterDetail = () => {
   const { data: chapterDetail } = useQuery(["chapter", chapterNumber, novelId], () => getChapterDetail(chapterNumber, novelId));
 
   return (
-    <Row>
-      <Col lg={8} md={12}>
+    <Grid container spacing={2}>
+      <Grid item lg={8} md={12}>
         <div className="chapter-detail">
           <div className="title">
             <h1>Battle Through the Heavens Chapter {chapterNumber}</h1>
@@ -72,11 +72,11 @@ const ChapterDetail = () => {
             </div>
           </div>
         </div>
-      </Col>
-      <Col lg={4} md={12}>
+      </Grid>
+      <Grid item lg={4} xs={12}>
         <PopularSection />
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };
 

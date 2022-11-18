@@ -9,3 +9,13 @@ export const getNovelDetail = (id) => {
     }
   });
 };
+
+export const getNovelListByUser = (id) => {
+  return apiServices.get("/novel/user/" + id).then((response) => {
+    if (response.status === 200) {
+      return response.data.data;
+    } else {
+      return [];
+    }
+  });
+};

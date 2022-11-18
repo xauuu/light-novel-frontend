@@ -4,6 +4,7 @@ import "../App.scss";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "../views/Header/index";
 import Loading from "../components/Loading/index.js";
+import AuthVerifyComponent from "../utils/auth-verify.js";
 const Home = lazy(() => import("../views/Home/index.js"));
 const Account = lazy(() => import("../views/Account/index"));
 const Upload = lazy(() => import("../views/Upload/index"));
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/upload/create" component={Create} />
             <Route exact path="/account" component={Account} />
           </Switch>
+          <AuthVerifyComponent />
         </div>
       </Suspense>
     </BrowserRouter>

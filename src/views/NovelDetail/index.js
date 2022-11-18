@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import Grid from "@material-ui/core/Grid";
 import "./NovelDetail.scss";
 import PopularSection from "./../Section/PopularSection";
 import { NavLink, useParams } from "react-router-dom";
@@ -23,8 +23,8 @@ const NovelDetail = () => {
   const { data: novel, isLoading } = useQuery(["novel", novelId], () => getNovelDetail(novelId));
 
   return (
-    <Row>
-      <Col lg={8} md={12}>
+    <Grid container spacing={2}>
+      <Grid item lg={8} md={12}>
         {!isLoading && (
           <div className="novel-detail">
             <div className="animefull">
@@ -161,11 +161,11 @@ const NovelDetail = () => {
             </div>
           </div>
         )}
-      </Col>
-      <Col lg={4} md={12}>
+      </Grid>
+      <Grid item lg={4} md={12}>
         <PopularSection />
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };
 
