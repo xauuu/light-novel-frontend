@@ -15,9 +15,9 @@ export const login = (email, password) => {
     });
 };
 
-export const register = (email, password, name) => {
+export const register = (name, email, password, passwordConfirm, photo = "") => {
   return apiServices
-    .post("/auth/register", { email, password, name })
+    .post("/auth/register", { name, email, photo, password, passwordConfirm })
     .then((response) => {
       if (response.status === 200) {
         return response.data;

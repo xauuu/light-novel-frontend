@@ -47,6 +47,9 @@ const Header = () => {
           <NavLink exact to="/trending" activeClassName="active">
             Trending
           </NavLink>
+          <NavLink exact to="/summarize" activeClassName="active">
+            Summarize
+          </NavLink>
           {isLoggedIn && (
             <NavLink exact to="/upload" activeClassName="active">
               Upload

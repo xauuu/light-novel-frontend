@@ -12,7 +12,6 @@ const AuthVerifyComponent = ({ history }) => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
         const decodedJwt = parseJwt(user.access_token);
-        console.log(decodedJwt.exp * 1000, Date.now());
         if (decodedJwt.exp * 1000 < Date.now()) {
           await userLogout();
           dispatch(logout());

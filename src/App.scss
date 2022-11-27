@@ -124,3 +124,18 @@ img {
     }
   }
 }
+
+legend {
+  float: none;
+}
+
+.hover_login {
+  cursor: pointer;
+  &:hover {
+    color: #366ad3;
+  }
+}
+
+.to_capitalize {
+  text-transform: capitalize;
+}

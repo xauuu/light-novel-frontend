@@ -1,26 +1,24 @@
 import React from "react";
 import { Formik } from "formik";
 import { Box, Button, FormHelperText, TextField, Typography } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { login } from "./../../apis/auth";
-import { login as dispatchLogin } from "../../store/features/userSlice.js";
+import { register } from "./../../apis/auth";
 
-const FormikLogin = ({ toggleForm }) => {
-  const dispatch = useDispatch();
+const FormikRegister = ({ toggleForm }) => {
   return (
     <Formik
       initialValues={{
+        fullname: "",
         email: "",
         password: "",
+        confirmPassword: "",
         submit: null
       }}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
         try {
-          const res = await login(values.email, values.password);
+          const res = await register(values.fullname, values.email, values.password, values.confirmPassword);
           if (res.code === 200) {
-            localStorage.setItem("user", JSON.stringify(res.data));
-            dispatch(dispatchLogin(res.data.user));
             resetForm({});
+            toggleForm(true);
           } else {
             setStatus({ success: false });
             setErrors({ submit: res.message });
@@ -33,6 +31,18 @@ const FormikLogin = ({ toggleForm }) => {
     >
       {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
         <form noValidate onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            autoFocus
+            label="Full name"
+            margin="normal"
+            size="medium"
+            name="fullname"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={values.fullname}
+            variant="outlined"
+          />
           <TextField
             fullWidth
             autoFocus
@@ -57,6 +67,19 @@ const FormikLogin = ({ toggleForm }) => {
             type="password"
             value={values.password}
             variant="outlined"
+            minLength={6}
+          />
+          <TextField
+            fullWidth
+            label="Nhập lại mật khẩu"
+            margin="normal"
+            name="confirmPassword"
+            size="medium"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            type="password"
+            value={values.confirmPassword}
+            variant="outlined"
           />
           {errors.submit && (
             <Box mt={3}>
@@ -65,14 +88,14 @@ const FormikLogin = ({ toggleForm }) => {
           )}
           <Box mt={2}>
             <Button color="primary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
-              Login
+              Register
             </Button>
           </Box>
           <Box mt={3}>
             <Typography color="textPrimary" variant="body1">
-              Don't have an account?{" "}
-              <span className="hover_login" onClick={(e) => toggleForm(false)}>
-                Register here
+              Already have an account?{" "}
+              <span className="hover_login" onClick={(e) => toggleForm(true)}>
+                Login here
               </span>
             </Typography>
           </Box>
@@ -82,4 +105,4 @@ const FormikLogin = ({ toggleForm }) => {
   );
 };
 
-export default FormikLogin;
+export default FormikRegister;

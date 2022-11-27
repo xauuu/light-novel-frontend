@@ -4,6 +4,7 @@ import Slide from "@material-ui/core/Slide";
 import FormikLogin from "./FormikLogin";
 import { Card, CardContent, Typography, makeStyles, Grid, IconButton } from "@material-ui/core";
 import { MdClose } from "react-icons/md";
+import FormikRegister from "./FormikRegister";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -35,6 +36,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Login = ({ isOpen, handleClose }) => {
   const classes = useStyles();
+
+  const [isLoginForm, setisLoginForm] = React.useState(true);
+
+  const toggleForm = (state) => {
+    setisLoginForm(state);
+  };
+
   return (
     <Dialog open={isOpen} TransitionComponent={Transition} keepMounted>
       <Card className={classes.card}>
@@ -44,10 +52,7 @@ const Login = ({ isOpen, handleClose }) => {
               <Grid container justifyContent="space-between">
                 <Grid item>
                   <Typography color="textPrimary" gutterBottom variant="h4">
-                    Đăng nhập
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Đăng nhập vào hệ thống
+                    Login
                   </Typography>
                   <IconButton className={classes.close} edge="start" color="inherit" onClick={handleClose} aria-label="close">
                     <MdClose />
@@ -57,7 +62,7 @@ const Login = ({ isOpen, handleClose }) => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <FormikLogin />
+            {isLoginForm ? <FormikLogin toggleForm={toggleForm} /> : <FormikRegister toggleForm={toggleForm} />}
           </Grid>
         </CardContent>
       </Card>
