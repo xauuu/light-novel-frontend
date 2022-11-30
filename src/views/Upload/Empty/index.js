@@ -1,11 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Empty = () => {
-  const history = useHistory();
-  const handleClickCreate = () => {
-    history.push("upload/create");
-  };
   return (
     <div className="empty">
       <div className="empty-image">
@@ -18,9 +14,9 @@ const Empty = () => {
         <div className="empty-title">No Works!</div>
         <div className="empty-subtitle text-muted">Click the button below to create your first fiction now.</div>
         <div className="empty-action">
-          <button onClick={handleClickCreate} className="btn btn-outline-primary">
+          <NavLink to="/upload/create" className="btn btn-outline-primary">
             Create Now
-          </button>
+          </NavLink>
         </div>
       </div>
     </div>

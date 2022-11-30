@@ -6,7 +6,7 @@ const Highlight = ({ text = "", highlight = "", handeInputChange }) => {
 
   useEffect(() => {
     if (!highlight) return;
-    var sentences = highlight.split(".").map((sentence) => sentence.trim());
+    var sentences = highlight.split(/[\\.!\?]/).map((sentence) => sentence.trim());
     sentences.pop();
     var regex = new RegExp(sentences.join("|"), "gi");
     if (regex.test(text)) {
@@ -37,7 +37,6 @@ const Highlight = ({ text = "", highlight = "", handeInputChange }) => {
       role="textbox"
       contentEditable={true}
       data-gramm_editor={false}
-      wt-ignore-input={value.toString()}
       suppressContentEditableWarning={true}
       placeholder="Paste or write about your topic then click the Summarize button."
       onInput={handeInputChange}

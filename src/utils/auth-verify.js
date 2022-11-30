@@ -15,7 +15,6 @@ const AuthVerifyComponent = ({ history }) => {
         if (decodedJwt.exp * 1000 < Date.now()) {
           await userLogout();
           dispatch(logout());
-          window.location.reload();
         }
       }
     }

@@ -24,12 +24,12 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/detail/:novelId" component={NovelDetail} />
             <Route path="/detail/:novelId/chapter/:chapterNumber" component={ChapterDetail} />
+            <Route path="/summarize" component={Summarize} />
             <AuthGuard>
-              <Route exact path="/upload" component={Upload} />
-              <Route exact path="/upload/create" component={Create} />
+              <Route path="/upload" component={Upload} />
+              {/* <Route exact path="/upload/create" component={Create} /> */}
             </AuthGuard>
             <Route exact path="/account" component={Account} />
-            <Route exact path="/summarize" component={Summarize} />
           </Switch>
           <AuthVerifyComponent />
         </div>

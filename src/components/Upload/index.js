@@ -1,10 +1,14 @@
-import { Divider, Grid, makeStyles, Typography, useMediaQuery, useTheme, LinearProgress, Box } from "@material-ui/core";
+import { Divider, Grid, makeStyles, Typography, useMediaQuery, useTheme, LinearProgress, Box, Slide } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import React from "react";
 import Dropzone, { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "./../../utils/firebase";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function getModalStyle() {
   return {
@@ -93,7 +97,7 @@ export default function FirebaseUpload(props) {
   }
 
   return (
-    <Modal open={openDialog || false} onClose={onClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
+    <Modal open={openDialog || false} onClose={onClose} TransitionComponent={Transition} keepMounted>
       <div style={{ ...modalStyle, width: matchDownXs ? "100%" : "500px" }} className={classes.paper}>
         <Typography variant="h6">Upload Image</Typography>
         <Divider className={classes.divider} />

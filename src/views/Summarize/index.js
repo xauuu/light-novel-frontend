@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, Divider, IconButton } from "@material-ui/core";
+import { Grid, Divider, IconButton, TextField, MenuItem, Slider } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { MdCopyAll } from "react-icons/md";
 import "./Summarize.scss";
@@ -21,7 +21,6 @@ const Summarize = () => {
 
   const handeInputChange = (e) => {
     setSummaryData({ ...summaryData, text: e.currentTarget.textContent });
-    console.log(e.currentTarget.textContent);
   };
 
   const handleSubmit = async (e) => {
@@ -47,8 +46,30 @@ const Summarize = () => {
 
   return (
     <Grid container className="summarize">
-      <Grid container className="summarize__title">
-        <h1>Summarize</h1>
+      <Grid container className="summarize__title" spacing={2}>
+        <Grid item xs={6}>
+          <h1>Summarize</h1>
+        </Grid>
+        <Grid item xs={3}>
+          <TextField fullWidth select size="small" name="method" value={summaryData.method} onChange={handleChange} variant="outlined">
+            <MenuItem value="textrank">TextRank</MenuItem>
+            <MenuItem value="frequency">Frequency</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={3}>
+          <Slider
+            value={summaryData.sentences}
+            onChange={(e, newValue) => {
+              setSummaryData({ ...summaryData, sentences: newValue });
+            }}
+            aria-labelledby="discrete-slider"
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={1}
+            max={10}
+          />
+        </Grid>
       </Grid>
       <Grid className="sum-container" container>
         <Grid item className="sum-content">
