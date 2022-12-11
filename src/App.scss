@@ -35,7 +35,6 @@ img {
 }
 
 .section-popular {
-  margin-top: 20px;
   background-color: #fff;
   box-shadow: 4px 2px 4px #8f8f8f;
 
@@ -136,6 +135,16 @@ legend {
   }
 }
 
+.cursor {
+  cursor: pointer;
+}
+
 .to_capitalize {
   text-transform: capitalize;
+}
+
+.plain-text-only {
+  user-modify: read-write-plaintext-only;
+  -moz-user-modify: read-write-plaintext-only;
+  -webkit-user-modify: read-write-plaintext-only;
 }

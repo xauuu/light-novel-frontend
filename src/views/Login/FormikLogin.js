@@ -20,6 +20,9 @@ const FormikLogin = ({ toggleForm }) => {
           if (res.code === 200) {
             localStorage.setItem("user", JSON.stringify(res.data));
             dispatch(dispatchLogin(res.data.user));
+            if (res.data.user.role === "admin") {
+              window.location.href = "/admin/dashboard";
+            }
             resetForm({});
           } else {
             setStatus({ success: false });

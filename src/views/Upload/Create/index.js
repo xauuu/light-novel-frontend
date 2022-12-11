@@ -1,14 +1,21 @@
 import React from "react";
 import "./../Upload.scss";
 import { BsBook, BsPlusCircle, BsCloudUpload } from "react-icons/bs";
-import { Button, Grid, MenuItem, TextField } from "@material-ui/core";
+import { Button, Grid, IconButton, MenuItem, TextField } from "@material-ui/core";
 import { genres } from "./data";
 import FirebaseUpload from "../../../components/Upload/index.js";
-import { createNovel } from "./../../../apis/novel";
+import { createNovel, getNovelDetail, updateNovel } from "./../../../apis/novel";
 import { useSelector } from "react-redux";
+import { NavLink, useHistory, useParams } from "react-router-dom";
+import { MdAdd, MdArrowBack } from "react-icons/md";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const Create = () => {
+  const queryClient = useQueryClient();
+  const { id } = useParams();
   const { user } = useSelector((state) => state.user);
+  const history = useHistory();
+  const { data } = useQuery(["getNovel", id], () => getNovelDetail(id));
   const [dialogUpload, setDialogUpload] = React.useState({
     open: false,
     type: ""
@@ -43,21 +50,64 @@ const Create = () => {
     setnovelData({ ...novelData, [e.target.name]: e.target.value });
   };
 
+  const updateMutation = useMutation(updateNovel, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("myNovelDetail");
+    }
+  });
+
+  const createMutation = useMutation(createNovel, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("myNovels");
+    }
+  });
+
   const handleCreate = async () => {
-    const res = await createNovel(novelData);
-    console.log(res);
+    if (novelData?.id) {
+      await updateMutation.mutateAsync(
+        { id: id, data: novelData },
+        {
+          onSuccess: () => {
+            history.goBack();
+          }
+        }
+      );
+    } else {
+      await createMutation.mutateAsync(
+        { data: novelData },
+        {
+          onSuccess: () => {
+            history.push("/upload");
+          }
+        }
+      );
+    }
   };
+
+  React.useEffect(() => {
+    setnovelData({
+      ...novelData,
+      ...data
+    });
+  }, [data]);
+
+  console.log(novelData);
 
   return (
     <React.Fragment>
       <FirebaseUpload open={dialogUpload.open} onClose={handleClose} onSuccess={setImageUrl} />
       <div className="title">
-        <BsBook />
-        <div>novel information</div>
+        <IconButton onClick={history.goBack}>
+          <MdArrowBack />
+        </IconButton>
+        <div>
+          <BsBook />
+          novel information
+        </div>
       </div>
       <form className="form">
         <Grid container spacing={3} justifyContent="center">
-          <Grid className="upload" item xs={12} sm={4}>
+          <Grid className="upload" item xs={12} sm={5}>
             <div className="image-container">
               <div className="image-upload" onClick={(e) => handleOpen("image")}>
                 <BsPlusCircle />
@@ -86,7 +136,16 @@ const Create = () => {
           <Grid item xs={12} sm={6}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <TextField required name="title" label="Title" fullWidth autoComplete="given-name" variant="outlined" onChange={handleChanges} />
+                <TextField
+                  required
+                  name="title"
+                  label="Title"
+                  fullWidth
+                  autoComplete="given-name"
+                  variant="outlined"
+                  value={novelData.title}
+                  onChange={handleChanges}
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -98,6 +157,7 @@ const Create = () => {
                   label="Description"
                   fullWidth
                   autoComplete="given-name"
+                  value={novelData.description}
                   variant="outlined"
                   onChange={handleChanges}
                 />
@@ -126,7 +186,7 @@ const Create = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button variant="contained" color="primary" onClick={handleCreate}>
-                  Create
+                  {novelData.id ? "Update" : "Create"}
                 </Button>
               </Grid>
             </Grid>

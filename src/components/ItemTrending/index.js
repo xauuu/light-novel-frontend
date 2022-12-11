@@ -2,27 +2,33 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./ItemTrending.scss";
 
-const ItemTrending = (props) => {
-  const { id, rating, image, title, description, tag } = props;
+const ItemTrending = ({ novel }) => {
+  const { id, rating, image_url, title, description, genres } = novel;
   return (
     <div className="trendlist">
       <span className="trendlist__rating">{rating}</span>
       <div className="trendlist__image">
         <NavLink to={`detail/${id}`}>
-          <img src={image} alt={title} />
+          <img src={image_url} alt={title} />
         </NavLink>
       </div>
       <div className="trendlist__content">
         <div className="trendlist__content__title">
           <NavLink to={`detail/${id}`}>{title}</NavLink>
         </div>
-        <div className="trendlist__content__description">{description}</div>
+        <div className="trendlist__content__description">{description || "Lorem "}</div>
         <div className="trendlist__content__tag">
-          {tag.map((item, index) => (
-            <NavLink to={"/tags/" + item} key={index}>
-              {item}
-            </NavLink>
-          ))}
+          {genres.map((item, index) => {
+            if (index < 6) {
+              return (
+                <NavLink to="/tag" key={index}>
+                  {item}
+                </NavLink>
+              );
+            } else {
+              return null;
+            }
+          })}
         </div>
       </div>
     </div>

@@ -10,10 +10,14 @@ const Summarize = () => {
   const [summaryData, setSummaryData] = useState({
     text: "",
     method: "textrank",
-    sentences: 3
+    sentences: 3,
+    url: "",
+    type: "text"
   });
 
   const [summary, setSummary] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setSummaryData({ ...summaryData, [e.target.name]: e.target.value });
@@ -25,8 +29,11 @@ const Summarize = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSummary("");
+    setLoading(true);
     const res = await summarize(summaryData);
     setSummary(res);
+    setLoading(false);
   };
 
   const handleCopy = () => {
@@ -44,14 +51,26 @@ const Summarize = () => {
     }
   };
 
+  React.useEffect(() => {
+    if (summaryData.text === "") {
+      setSummary("");
+    }
+  }, [summaryData.text]);
+
   return (
     <Grid container className="summarize">
       <Grid container className="summarize__title" spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={3}>
           <h1>Summarize</h1>
         </Grid>
         <Grid item xs={3}>
-          <TextField fullWidth select size="small" name="method" value={summaryData.method} onChange={handleChange} variant="outlined">
+          <TextField fullWidth select size="small" name="type" value={summaryData.type} onChange={handleChange} variant="outlined" label="Type">
+            <MenuItem value="text">Plain Text</MenuItem>
+            <MenuItem value="url">URL</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={3}>
+          <TextField fullWidth select size="small" name="method" value={summaryData.method} onChange={handleChange} variant="outlined" label="Algorithm">
             <MenuItem value="textrank">TextRank</MenuItem>
             <MenuItem value="frequency">Frequency</MenuItem>
           </TextField>
@@ -74,7 +93,10 @@ const Summarize = () => {
       <Grid className="sum-container" container>
         <Grid item className="sum-content">
           <div className="summarize__input">
-            <Highlight text={summaryData.text} highlight={summary} handeInputChange={handeInputChange} />
+            {summaryData.type === "text" && <Highlight text={summaryData.text} highlight={summary} handeInputChange={handeInputChange} />}
+            {summaryData.type === "url" && (
+              <TextField fullWidth size="small" name="url" value={summaryData.url} onChange={handleChange} variant="outlined" label="URL" />
+            )}
           </div>
         </Grid>
         <Divider className="divider" orientation="vertical" flexItem />
@@ -104,7 +126,7 @@ const Summarize = () => {
               </div>
             )}
             <button className="summary" onClick={handleSubmit}>
-              Summarize
+              {loading ? "Loading..." : "Summarize"}
             </button>
           </Grid>
           <Divider className="divider" orientation="vertical" flexItem />

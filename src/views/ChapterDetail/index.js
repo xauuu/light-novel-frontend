@@ -7,11 +7,13 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineFormatListBulleted,
 import ShareSocial from "./../../components/ShareSocial/index";
 import { getChapterDetail } from "./../../apis/chapter";
 import { useQuery } from "@tanstack/react-query";
+import Parser from "html-react-parser";
+import { formatDateTime } from "../../utils/helper.js";
 
 const ChapterDetail = () => {
   const { novelId, chapterNumber } = useParams();
 
-  const { data: chapterDetail } = useQuery(["chapter", chapterNumber, novelId], () => getChapterDetail(chapterNumber, novelId));
+  const { data: chapterDetail, isLoading } = useQuery(["chapter", chapterNumber, novelId], () => getChapterDetail(chapterNumber, novelId));
 
   return (
     <Grid container spacing={2}>
@@ -20,7 +22,7 @@ const ChapterDetail = () => {
           <div className="title">
             <h1>Battle Through the Heavens Chapter {chapterNumber}</h1>
             <div>
-              Posted by {chapterDetail?.created_by}, {chapterDetail?.views} Views, Released on {chapterDetail?.updated_at}
+              Posted by {chapterDetail?.created_by}, {chapterDetail?.views} Views, Released on {formatDateTime(chapterDetail?.updated_at)}
             </div>
           </div>
           <div className="actions">
@@ -46,7 +48,7 @@ const ChapterDetail = () => {
             </button>
           </div>
           <ShareSocial url={window.location.href} />
-          <div className="content">{chapterDetail?.content}</div>
+          <div className="content">{Parser(chapterDetail?.content || "")}</div>
           <div className="actions bottom">
             {chapterDetail?.previous && (
               <NavLink to={`./${chapterDetail?.previous.chapter_number}`} className="button pre">

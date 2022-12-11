@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { BiLogOut, BiUser } from "react-icons/bi";
 import "./Header.scss";
-import Login from "../Login/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/features/userSlice.js";
-import { logout as userLogout } from "./../../apis/auth";
+import Login from "./../../../views/Login/index";
+import { logout as userLogout } from "../../../apis/auth.js";
+import { logout } from "../../../store/features/userSlice.js";
 
 const Header = () => {
   const { user, isLoggedIn } = useSelector((state) => state.user);

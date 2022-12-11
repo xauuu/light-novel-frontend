@@ -4,8 +4,8 @@ import Popover from "react-bootstrap/Popover";
 import { NavLink } from "react-router-dom";
 import "./ItemStory.scss";
 
-const ItemStory = (props) => {
-  const { img, title, genres, id, rating, chapter, description } = props;
+const ItemStory = ({ novel }) => {
+  const { image_url, title, genres, id, rating, chapter, description } = novel;
 
   const popover = (
     <Popover id="popover-basic">
@@ -19,13 +19,13 @@ const ItemStory = (props) => {
       <div className="item-story">
         <NavLink to={`detail/${id}`}>
           <div className="thumbnail">
-            <img src={img} alt={title} />
+            <img src={image_url} alt={title} />
             <div className="chap">Chapter {chapter}</div>
           </div>
           <div className="info">
             <div>
               <div className="title">{title}</div>
-              <div className="genres">{genres}</div>
+              <div className="genres">{genres.join(", ")}</div>
             </div>
             <div className="rating">{rating}</div>
           </div>

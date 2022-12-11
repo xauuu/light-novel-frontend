@@ -24,7 +24,7 @@ const ItemCarousel = ({ novel }) => {
           <div className="year">{year}</div>
           <div className="excerpt">
             <span>Summary</span>
-            <div>{description}</div>
+            <div>{description || "Lorem "}</div>
           </div>
           <div className="tag">
             {genres?.map((item, index) => (

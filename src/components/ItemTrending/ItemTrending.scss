@@ -22,15 +22,17 @@
   }
   .trendlist__image {
     width: 85px;
-    height: 85px;
+    height: 100px;
     border-radius: 8px;
     overflow: hidden;
     display: flex;
 
-    img {
+    a {
       width: 100%;
-      height: auto;
-      object-fit: cover;
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
   .trendlist__content {
@@ -62,6 +64,7 @@
     }
 
     .trendlist__content__tag {
+      margin-top: auto;
       a {
         font-size: 14px;
         display: inline-block;
@@ -72,6 +75,7 @@
         font-size: 12px;
         font-weight: 500;
         color: #000;
+        text-transform: capitalize;
 
         &:first-child {
           background: #366ad3;

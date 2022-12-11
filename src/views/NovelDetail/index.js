@@ -10,6 +10,7 @@ import TablePaginationActions from "./../../components/TablePaginationActions/in
 import ShareSocial from "./../../components/ShareSocial/index";
 import { getNovelDetail } from "./../../apis/novel";
 import { useQuery } from "@tanstack/react-query";
+import { formatDateTime } from "../../utils/helper.js";
 
 const NovelDetail = () => {
   const { novelId } = useParams();
@@ -69,7 +70,7 @@ const NovelDetail = () => {
                     </span>
                     <span>
                       <strong>Updated on: </strong>
-                      {novel?.updated_at}
+                      {formatDateTime(novel?.updated_at)}
                     </span>
                   </div>
                   <div className="header__content__info__genres">
@@ -105,15 +106,15 @@ const NovelDetail = () => {
               <div className="chapter__firstlast">
                 <div className="row">
                   <div className="col-lg-6 col-md-12">
-                    <NavLink to={`${novelId}/chapter/${novel?.chapter?.[0]?.chapter_number}`}>
+                    <NavLink to={`${novelId}/chapter/${novel?.chapter?.slice(-1)[0]?.chapter_number}`}>
                       <span>First Chapter</span>
-                      <span>Chapter {novel?.chapter?.[0]?.chapter_number}</span>
+                      <span>Chapter {novel?.chapter?.slice(-1)[0]?.chapter_number}</span>
                     </NavLink>
                   </div>
                   <div className="col-lg-6 col-md-12">
-                    <NavLink to={`${novelId}/chapter/${novel?.chapter?.slice(-1)[0]?.chapter_number}`}>
+                    <NavLink to={`${novelId}/chapter/${novel?.chapter?.[0]?.chapter_number}`}>
                       <span>New Chapter</span>
-                      <span>Chapter {novel?.chapter?.slice(-1)[0]?.chapter_number}</span>
+                      <span>Chapter {novel?.chapter?.[0]?.chapter_number}</span>
                     </NavLink>
                   </div>
                 </div>
@@ -127,7 +128,7 @@ const NovelDetail = () => {
                           <TableCell style={{ width: 160 }}>Chapter {row.chapter_number}</TableCell>
                           <TableCell align="left">{row.title}</TableCell>
                           <TableCell style={{ width: 160 }} align="right">
-                            {row.created_at}
+                            {formatDateTime(row.created_at)}
                           </TableCell>
                         </TableRow>
                       ))}
