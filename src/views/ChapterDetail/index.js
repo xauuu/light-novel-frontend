@@ -1,6 +1,6 @@
 import React from "react";
 import "./ChapterDetail.scss";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import PopularSection from "./../Section/PopularSection";
 import { NavLink, useParams } from "react-router-dom";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineFormatListBulleted, MdSettings } from "react-icons/md";

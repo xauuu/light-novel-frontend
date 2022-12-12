@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import { Box, Button, FormHelperText, TextField, Typography } from "@material-ui/core";
+import { Box, Button, FormHelperText, TextField, Typography } from "@mui/material";
 import { register } from "./../../apis/auth";
 
 const FormikRegister = ({ toggleForm }) => {

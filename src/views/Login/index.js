@@ -1,12 +1,13 @@
 import React from "react";
-import Dialog from "@material-ui/core/Dialog";
-import Slide from "@material-ui/core/Slide";
+import Dialog from "@mui/material/Dialog";
+import Slide from "@mui/material/Slide";
 import FormikLogin from "./FormikLogin";
-import { Card, CardContent, Typography, makeStyles, Grid, IconButton } from "@material-ui/core";
+import { Card, CardContent, Typography, Grid, IconButton } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { MdClose } from "react-icons/md";
 import FormikRegister from "./FormikRegister";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   card: {
     overflow: "visible",
     display: "flex",
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 auto"
   },
   content: {
-    padding: theme.spacing(4, 4, 3, 4)
+    padding: "40px 32px 24px 32px !important"
   },
   close: {
     position: "absolute",

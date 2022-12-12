@@ -128,6 +128,10 @@ legend {
   float: none;
 }
 
+p {
+  margin-bottom: 0 !important;
+}
+
 .hover_login {
   cursor: pointer;
   &:hover {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ItemCarousel from "./../../components/ItemCarousel/index";
 import ItemTrending from "./../../components/ItemTrending/index";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import PopularSection from "./../Section/PopularSection";
 import ItemStory from "../../components/ItemStory/index.js";
 import OwlCarousel from "react-owl-carousel";

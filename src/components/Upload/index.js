@@ -1,6 +1,7 @@
-import { Divider, Grid, makeStyles, Typography, useMediaQuery, useTheme, LinearProgress, Box, Slide } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
+import { Divider, Grid, Typography, useMediaQuery, useTheme, LinearProgress, Box, Slide } from "@mui/material";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 import Dropzone, { useDropzone } from "react-dropzone";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
@@ -18,18 +19,18 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   paper: {
     position: "absolute",
     width: 400,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#fff",
     border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    boxShadow: "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%)",
+    padding: "16px 32px 24px"
   },
   divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
+    marginTop: "16px!important",
+    marginBottom: "16px!important"
   },
   dropzone: {
     textAlign: "center",
@@ -42,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px"
   },
   progress: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(3)
+    marginTop: "16px!important",
+    marginBottom: "16px!important"
   }
 }));
 

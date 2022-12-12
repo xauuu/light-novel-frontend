@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { getNovelByStatus, updateNovel } from "./../../../apis/novel";
-import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, TableHead, IconButton, Grid, Tooltip } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, TableHead, IconButton, Grid, Tooltip } from "@mui/material";
 import TablePaginationActions from "./../../../components/TablePaginationActions/index";
 import { formatDateTime } from "../../../utils/helper.js";
 import { MdDelete, MdDone } from "react-icons/md";

@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import React from "react";
 import { MdClose, MdLogout, MdMenu, MdOutlineAccountCircle, MdOutlineDashboard } from "react-icons/md";
 import { GiBookshelf } from "react-icons/gi";

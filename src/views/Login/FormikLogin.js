@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-import { Box, Button, FormHelperText, TextField, Typography } from "@material-ui/core";
+import { Box, Button, FormHelperText, TextField, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { login } from "./../../apis/auth";
 import { login as dispatchLogin } from "../../store/features/userSlice.js";

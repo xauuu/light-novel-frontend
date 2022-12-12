@@ -3,7 +3,7 @@ import { NavLink, useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getNovelDetail } from "./../../../apis/novel";
 import { MdAdd, MdArrowBack, MdOutlineSettings } from "react-icons/md";
-import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, TableHead, IconButton } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, TableHead, IconButton } from "@mui/material";
 import TablePaginationActions from "./../../../components/TablePaginationActions/index";
 import ChapterModal from "./../ChapterModal/index";
 import { getChapterByNovelId } from "../../../apis/chapter.js";

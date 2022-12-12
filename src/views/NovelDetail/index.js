@@ -1,11 +1,11 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import "./NovelDetail.scss";
 import PopularSection from "./../Section/PopularSection";
 import { NavLink, useParams } from "react-router-dom";
 import { FaBookOpen } from "react-icons/fa";
-import Rating from "@material-ui/lab/Rating";
-import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, Paper } from "@material-ui/core";
+import Rating from "@mui/material/Rating";
+import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, Paper } from "@mui/material";
 import TablePaginationActions from "./../../components/TablePaginationActions/index";
 import ShareSocial from "./../../components/ShareSocial/index";
 import { getNovelDetail } from "./../../apis/novel";

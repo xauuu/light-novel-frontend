@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, Paper, TableHead, IconButton } from "@material-ui/core";
+import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, Paper, TableHead, IconButton } from "@mui/material";
 import { getNovelListByUser } from "../../../apis/novel.js";
 import Empty from "../Empty/index.js";
 import TablePaginationActions from "./../../../components/TablePaginationActions/index";

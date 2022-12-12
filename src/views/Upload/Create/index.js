@@ -1,7 +1,7 @@
 import React from "react";
 import "./../Upload.scss";
 import { BsBook, BsPlusCircle, BsCloudUpload } from "react-icons/bs";
-import { Button, Grid, IconButton, MenuItem, TextField } from "@material-ui/core";
+import { Button, Grid, IconButton, MenuItem, TextField } from "@mui/material";
 import { genres } from "./data";
 import FirebaseUpload from "../../../components/Upload/index.js";
 import { createNovel, getNovelDetail, updateNovel } from "./../../../apis/novel";

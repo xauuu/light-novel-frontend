@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Grid, Divider, IconButton, TextField, MenuItem, Slider } from "@material-ui/core";
-import Skeleton from "@material-ui/lab/Skeleton";
+import { Grid, Divider, IconButton, TextField, MenuItem, Slider } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import { MdCopyAll } from "react-icons/md";
 import "./Summarize.scss";
 import { summarize } from "./../../apis/summarize";
