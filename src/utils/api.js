@@ -4,7 +4,8 @@ const apiServices = axios.create({
   baseURL: apiDomain,
   withCredentials: true,
   headers: {
-    "Access-Control-Allow-Origin": "*"
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
   }
 });
 
