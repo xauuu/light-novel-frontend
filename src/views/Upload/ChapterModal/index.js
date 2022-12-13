@@ -52,7 +52,7 @@ const ChapterModal = (props) => {
       <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={handleClose} className="chapter-dialog">
         <DialogTitle id="alert-dialog-slide-title">{chapter?.id ? "Update Chapter" : "Create New Chapter"}</DialogTitle>
         <DialogContent>
-          <TextField name="title" label="Title" variant="outlined" fullWidth value={title} onChange={handleChange} className="mb-3" />
+          <TextField size="medium" name="title" label="Title" variant="outlined" fullWidth value={title} onChange={handleChange} className="mb-3 mt-2" />
           <Editor
             apiKey="yqmoow9n6xokvi941l4vglnv42alvn3fv3tqums01cfh2n91"
             onInit={(evt, editor) => (editorRef.current = editor)}

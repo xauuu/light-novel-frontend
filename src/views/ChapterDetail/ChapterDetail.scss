@@ -10,10 +10,15 @@
     margin-bottom: 10px;
     h1 {
       line-height: 30px;
-      margin-bottom: 8px;
       font-size: 24px;
       color: #366ad3;
       font-weight: 700;
+    }
+    h2 {
+      font-size: 22px;
+      color: #666;
+      font-weight: 500;
+      margin-bottom: 8px;
     }
     div {
       font-size: 14px;
@@ -47,6 +52,12 @@
       &.options {
         border: none;
         margin-left: auto;
+        padding: 0;
+      }
+      &.play {
+        font-size: 25px;
+        color: #366ad3;
+        padding: 0;
       }
       @include mobile {
         span {

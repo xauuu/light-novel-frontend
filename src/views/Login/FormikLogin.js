@@ -17,6 +17,7 @@ const FormikLogin = ({ toggleForm }) => {
       onSubmit={async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
         try {
           const res = await login(values.email, values.password);
+          console.log(res);
           if (res.code === 200) {
             localStorage.setItem("user", JSON.stringify(res.data));
             dispatch(dispatchLogin(res.data.user));

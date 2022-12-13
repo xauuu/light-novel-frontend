@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     padding: "40px 32px 24px 32px !important"
   },
   close: {
-    position: "absolute",
+    position: "absolute!important",
     top: "25px",
     right: "20px",
     zIndex: 1
