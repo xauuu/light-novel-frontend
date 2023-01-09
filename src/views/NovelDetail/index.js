@@ -8,8 +8,8 @@ import Rating from "@mui/material/Rating";
 import { Table, TableBody, TableCell, TableContainer, TableRow, TableFooter, TablePagination, Paper } from "@mui/material";
 import TablePaginationActions from "./../../components/TablePaginationActions/index";
 import ShareSocial from "./../../components/ShareSocial/index";
-import { getNovelDetail } from "./../../apis/novel";
-import { useQuery } from "@tanstack/react-query";
+import { getNovelDetail, ratingNovel } from "./../../apis/novel";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDateTime } from "../../utils/helper.js";
 
 const NovelDetail = () => {
@@ -17,11 +17,23 @@ const NovelDetail = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  const queryClient = useQueryClient();
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const { data: novel, isLoading } = useQuery(["novel", novelId], () => getNovelDetail(novelId));
+  const ratingMutation = useMutation(ratingNovel, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("novelDetail");
+    }
+  });
+
+  const handleRating = async (event, newValue) => {
+    await ratingMutation.mutateAsync({ id: novelId, rating: newValue });
+  };
+
+  const { data: novel, isLoading } = useQuery(["novelDetail", novelId], () => getNovelDetail(novelId));
 
   return (
     <Grid container spacing={2}>
@@ -39,7 +51,7 @@ const NovelDetail = () => {
                 <div className="header__content__image">
                   <img alt="" src={novel?.image_url} />
                   <div className="header__content__rating">
-                    <Rating value={novel?.rating} readOnly precision={0.1} />
+                    <Rating value={novel?.rating} precision={0.1} onChange={handleRating} />
                   </div>
                 </div>
                 <div className="header__content__info">

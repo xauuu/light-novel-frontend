@@ -15,6 +15,7 @@ const NovelDetail = lazy(() => import("../views/NovelDetail"));
 const ChapterDetail = lazy(() => import("../views/ChapterDetail"));
 const Summarize = lazy(() => import("./../views/Summarize"));
 const Admin = lazy(() => import("./../views/Admin"));
+const Profile = lazy(() => import("./../views/Profile"));
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route exact path="/account" component={Account} />
               <AuthGuard>
                 <Route path="/upload" component={Upload} />
+                <Route path="/profile" component={Profile} />
               </AuthGuard>
             </MainLayout>
           </Route>

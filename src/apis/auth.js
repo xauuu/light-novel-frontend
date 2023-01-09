@@ -40,3 +40,33 @@ export const logout = () => {
       console.log(error);
     });
 };
+
+export const getProfile = () => {
+  return apiServices
+    .get("/auth/me")
+    .then((response) => {
+      if (response.status === 200) {
+        return response.data.data;
+      } else {
+        return {};
+      }
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+export const updateProfile = ({ data }) => {
+  return apiServices
+    .post("/auth/update", { ...data })
+    .then((response) => {
+      if (response.status === 200) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch((error) => {
+      return error;
+    });
+};

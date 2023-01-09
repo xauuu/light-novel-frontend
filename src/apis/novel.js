@@ -60,3 +60,13 @@ export const getNovelByStatus = (status) => {
     }
   });
 };
+
+export const ratingNovel = ({ id, rating }) => {
+  return apiServices.post("/novel/rating/" + id, rating).then((response) => {
+    if (response.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+};

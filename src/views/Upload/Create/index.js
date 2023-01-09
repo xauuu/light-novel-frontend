@@ -91,8 +91,6 @@ const Create = () => {
     });
   }, [data]);
 
-  console.log(novelData);
-
   return (
     <React.Fragment>
       <FirebaseUpload open={dialogUpload.open} onClose={handleClose} onSuccess={setImageUrl} />

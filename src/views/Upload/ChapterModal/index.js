@@ -4,6 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import "./ChapterModal.scss";
 import { createChapter, updateChapter } from "./../../../apis/chapter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
@@ -11,6 +12,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const ChapterModal = (props) => {
   const queryClient = useQueryClient();
+  const { user } = useSelector((state) => state.user);
   const { id: novel_id, open, handleClose, chapter } = props;
   const [title, setTitle] = React.useState("");
   const editorRef = React.useRef(null);
@@ -37,12 +39,13 @@ const ChapterModal = (props) => {
 
   const handleClick = async () => {
     const content = editorRef.current.getContent();
+    const user_name = user?.name || "Anonymous";
     if (chapter?.id) {
-      await updateMutation.mutateAsync({ id: chapter.id, data: { title, content } });
+      await updateMutation.mutateAsync({ id: chapter.id, data: { title, content, updated_by: user_name } });
       // await updateChapter(chapter.id, { title, content });
     } else {
       // await createChapter({ novel_id, title, content });
-      await createMutation.mutateAsync({ data: { novel_id, title, content } });
+      await createMutation.mutateAsync({ data: { novel_id, title, content, created_by: user_name } });
     }
     handleClose();
   };

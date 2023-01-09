@@ -13,6 +13,7 @@ import useAudio from "./../../hooks/useAudio";
 import Loading from "./../../components/Loading/index";
 import Switch from "../../components/Switch/index.js";
 import { apiDomain } from "./../../store/constants";
+import { TextToSpeech } from "tts-react";
 
 const ChapterDetail = () => {
   const { novelId, chapterNumber } = useParams();
@@ -76,7 +77,12 @@ const ChapterDetail = () => {
                 </button>
               </div>
               <ShareSocial url={window.location.href} />
-              <div className="content">{isSummary ? Parser(chapterDetail?.summary) : Parser(chapterDetail?.content)}</div>
+              <div className="content">
+                {/* {isSummary ? Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter") : Parser(chapterDetail?.content)} */}
+                <TextToSpeech markBackgroundColor="#366ad3" markColor="#fff" markTextAsSpoken position="topCenter" lang="en-AU">
+                  {isSummary ? Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter") : Parser(chapterDetail?.content)}
+                </TextToSpeech>
+              </div>
               <div className="actions bottom">
                 {chapterDetail?.previous && (
                   <NavLink to={`./${chapterDetail?.previous.chapter_number}`} className="button pre">
