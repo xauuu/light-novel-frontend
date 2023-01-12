@@ -14,44 +14,51 @@ const User = () => {
     setPage(newPage);
   };
   return (
-    <Grid container spacing={3}>
-      <TableContainer>
-        <Table aria-label="custom pagination table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Email</TableCell>
-              <TableCell>User Name</TableCell>
-              <TableCell>Created At</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(rowsPerPage > 0 ? data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data)?.map((row) => (
-              <TableRow className="tableRow" key={row.id}>
-                <TableCell className="novel-title" component="th" scope="row">
-                  <img src={row.photo} alt="" /> {row.email}
-                </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{formatDateTime(row.created_at)}</TableCell>
+    <React.Fragment>
+      <div className="admin-header">
+        <div>
+          <h3>User</h3>
+        </div>
+      </div>
+      <Grid container spacing={3}>
+        <TableContainer>
+          <Table aria-label="custom pagination table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Email</TableCell>
+                <TableCell>User Name</TableCell>
+                <TableCell>Created At</TableCell>
+                <TableCell></TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[]}
-                // colSpan={3}
-                count={data?.length || 0}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
-    </Grid>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0 ? data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : data)?.map((row) => (
+                <TableRow className="tableRow" key={row.id}>
+                  <TableCell className="novel-title" component="th" scope="row">
+                    <img src={row.photo} alt="" /> {row.email}
+                  </TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{formatDateTime(row.created_at)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[]}
+                  // colSpan={3}
+                  count={data?.length || 0}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </Grid>
+    </React.Fragment>
   );
 };
 

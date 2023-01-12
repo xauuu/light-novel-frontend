@@ -8,22 +8,15 @@ import "./style.scss";
 const Admin = () => {
   const { path } = useRouteMatch();
   return (
-    <div className="admin-container">
-      <div className="admin-header">
-        <div>
-          <h3>Dashboard</h3>
-        </div>
-      </div>
-      <div className="admin-main">
-        <div className="fake-header"></div>
-        <div className="admin-main__content">
-          <div className="default">
-            <Switch>
-              <Route path={`${path}/dashboard`} component={Dashboard} />
-              <Route path={`${path}/users`} component={User} />
-              <Route path={`${path}/novels`} component={Novel} />
-            </Switch>
-          </div>
+    <div className="admin-main">
+      <div className="fake-header"></div>
+      <div className="admin-main__content">
+        <div className="default">
+          <Switch>
+            <Route path={`${path}/dashboard`} component={Dashboard} />
+            <Route path={`${path}/users`} component={User} />
+            <Route path={`${path}/novels`} component={Novel} />
+          </Switch>
         </div>
       </div>
     </div>

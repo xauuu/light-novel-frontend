@@ -19,7 +19,7 @@ const FormikLogin = ({ toggleForm }) => {
           const res = await login(values.email, values.password);
           console.log(res);
           if (res.code === 200) {
-            localStorage.setItem("user", JSON.stringify(res.data));
+            localStorage.setItem("user", JSON.stringify(res.data.user));
             dispatch(dispatchLogin(res.data.user));
             if (res.data.user.role === "admin") {
               window.location.href = "/admin/dashboard";

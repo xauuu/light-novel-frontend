@@ -64,11 +64,11 @@ const ChapterDetail = () => {
                     <MdKeyboardArrowRight />
                   </NavLink>
                 )}
-                {!isSummary && (
+                {/* {!isSummary && (
                   <span className="button play" onClick={togglePlayback}>
                     {playing ? <MdPauseCircle /> : <MdPlayCircle />}
                   </span>
-                )}
+                )} */}
 
                 <button className="button options">
                   {/* <MdSettings />
@@ -79,7 +79,7 @@ const ChapterDetail = () => {
               <ShareSocial url={window.location.href} />
               <div className="content">
                 {/* {isSummary ? Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter") : Parser(chapterDetail?.content)} */}
-                <TextToSpeech markBackgroundColor="#366ad3" markColor="#fff" markTextAsSpoken position="topCenter" lang="en-AU">
+                <TextToSpeech markBackgroundColor="#366ad3" markColor="#fff" markTextAsSpoken position="topCenter" lang={chapterDetail?.lang || "en-AU"}>
                   {isSummary ? Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter") : Parser(chapterDetail?.content)}
                 </TextToSpeech>
               </div>

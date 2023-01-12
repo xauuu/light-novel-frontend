@@ -11,14 +11,16 @@ const Profile = () => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery(["getProfile"], () => getProfile(), {
+    refetchOnWindowFocus: false,
     onSuccess: (data) => {
       setForm(data);
     }
   });
 
   const updateMutation = useMutation(updateProfile, {
-    onSuccess: () => {
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries("getProfile");
+      localStorage.setItem("user", JSON.stringify(variables.data));
     }
   });
 
@@ -50,7 +52,6 @@ const Profile = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(form);
     await updateMutation.mutateAsync({ data: form });
   };
 

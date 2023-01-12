@@ -37,15 +37,15 @@ const Header = () => {
       <div className="header">
         <div className="header__logo">
           <NavLink to="/">
-            <img src="https://lightnovel.themesia.com/wp-content/uploads/2022/08/logo-v2.png" alt="logo" />
+            <img src="https://i.ibb.co/KX3Kz6n/Lavender.png" alt="logo" />
           </NavLink>
         </div>
         <div className="header__links">
           <NavLink exact to="/" activeClassName="active">
             Home
           </NavLink>
-          <NavLink exact to="/trending" activeClassName="active">
-            Trending
+          <NavLink exact to="/search" activeClassName="active">
+            Search
           </NavLink>
           <NavLink exact to="/summarize" activeClassName="active">
             Summarize
@@ -64,7 +64,7 @@ const Header = () => {
               <div className="user-menu__dropdown">
                 <NavLink exact to="/profile">
                   <BiUser />
-                  Profile
+                  {user.name}
                 </NavLink>
                 <div onClick={handleLogout}>
                   <BiLogOut />

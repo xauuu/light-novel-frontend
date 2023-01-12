@@ -6,7 +6,7 @@ const AdminLayout = ({ children }) => {
   return (
     <div className="df">
       <Sidebar />
-      {children}
+      <div className="admin-container">{children}</div>
     </div>
   );
 };

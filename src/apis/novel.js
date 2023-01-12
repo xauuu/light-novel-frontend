@@ -70,3 +70,23 @@ export const ratingNovel = ({ id, rating }) => {
     }
   });
 };
+
+export const searchNovel = (keyword) => {
+  return apiServices.get("/novel/search/" + keyword).then((response) => {
+    if (response.status === 200) {
+      return response.data.data;
+    } else {
+      return [];
+    }
+  });
+};
+
+export const getAllNovel = () => {
+  return apiServices.get("/novel/").then((response) => {
+    if (response.status === 200) {
+      return response.data.data;
+    } else {
+      return [];
+    }
+  });
+};
