@@ -90,3 +90,13 @@ export const getAllNovel = () => {
     }
   });
 };
+
+export const deleteNovel = ({id}) => {
+  return apiServices.delete("/novel/" + id).then((response) => {
+    if (response.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+}

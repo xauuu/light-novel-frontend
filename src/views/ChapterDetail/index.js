@@ -3,36 +3,77 @@ import "./ChapterDetail.scss";
 import Grid from "@mui/material/Grid";
 import PopularSection from "./../Section/PopularSection";
 import { NavLink, useParams } from "react-router-dom";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineFormatListBulleted, MdPauseCircle, MdPlayCircle, MdSettings } from "react-icons/md";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineFormatListBulleted } from "react-icons/md";
 import ShareSocial from "./../../components/ShareSocial/index";
-import { getChapterDetail } from "./../../apis/chapter";
-import { useQuery } from "@tanstack/react-query";
+import { addComment, getChapterDetail, getCommentByChapterId } from "./../../apis/chapter";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Parser from "html-react-parser";
 import { formatDateTime } from "../../utils/helper.js";
-import useAudio from "./../../hooks/useAudio";
 import Loading from "./../../components/Loading/index";
 import Switch from "../../components/Switch/index.js";
-import { apiDomain } from "./../../store/constants";
 import { TextToSpeech } from "tts-react";
+import ItemComment from "./../../components/ItemComment/index";
+import { useSelector } from "react-redux";
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
 
 const ChapterDetail = () => {
-  const { novelId, chapterNumber } = useParams();
-  const { data: chapterDetail, isLoading } = useQuery(["chapter", chapterNumber, novelId], () => getChapterDetail(chapterNumber, novelId));
-  const [isSummary, setIsSummary] = React.useState(false);
-  const [sourceUrl, setSourceUrl] = React.useState("");
-  const [playing, togglePlayback] = useAudio(sourceUrl);
+  const queryClient = useQueryClient();
 
-  React.useEffect(() => {
-    var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
-    if (regex.test(chapterDetail?.source_file_url)) {
-      setSourceUrl(chapterDetail?.source_file_url);
-      return;
+  const { novelId, chapterNumber } = useParams();
+  const [chapterId, setChapterId] = React.useState("");
+  const { data: chapterDetail, isLoading } = useQuery(["chapter", chapterNumber, novelId], () => getChapterDetail(chapterNumber, novelId), {
+    onSuccess: (data) => {
+      setChapterId(data.id);
     }
-    setSourceUrl(apiDomain + chapterDetail?.source_file_url);
-  }, [chapterDetail]);
+  });
+  const { data: comments, isLoading: isLoadingComment } = useQuery(["comment", chapterId], () => getCommentByChapterId(chapterId), { enabled: !!chapterId });
+  const [isSummary, setIsSummary] = React.useState(false);
+  const { user, isLoggedIn } = useSelector((state) => state.user);
+  const [open, setOpen] = React.useState(false);
+  const [content, setContent] = React.useState("");
+
+  const addCommentMutation = useMutation(addComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comment"]);
+    }
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmmit = async () => {
+    if (!isLoggedIn) return;
+    if (!content) return;
+    await addCommentMutation.mutateAsync({ data: { chapter_id: chapterId, user_id: user?.id, name: user?.name, photo: user?.photo, content: content } });
+    handleClose();
+  };
 
   return (
     <Grid container spacing={2}>
+      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+        <DialogTitle>Write a Comment</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            fullWidth
+            variant="standard"
+            multiline
+            onChange={(e) => setContent(e.target.value)}
+            rows={3}
+            placeholder="Type your comment here. Please write your comment as detailed as you can."
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmmit}>Submit</Button>
+        </DialogActions>
+      </Dialog>
       <Grid item lg={8} md={12}>
         {isLoading && <Loading />}
         {!isLoading && (
@@ -79,9 +120,13 @@ const ChapterDetail = () => {
               <ShareSocial url={window.location.href} />
               <div className="content">
                 {/* {isSummary ? Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter") : Parser(chapterDetail?.content)} */}
-                <TextToSpeech markBackgroundColor="#366ad3" markColor="#fff" markTextAsSpoken position="topCenter" lang={chapterDetail?.lang || "en-AU"}>
-                  {isSummary ? Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter") : Parser(chapterDetail?.content)}
-                </TextToSpeech>
+                {isSummary ? (
+                  Parser(chapterDetail?.summary || "Sorry, there is currently no summary for this chapter")
+                ) : (
+                  <TextToSpeech markBackgroundColor="#366ad3" markColor="#fff" markTextAsSpoken position="topCenter" lang={chapterDetail?.lang || "en-AU"}>
+                    {Parser(chapterDetail?.content)}
+                  </TextToSpeech>
+                )}
               </div>
               <div className="actions bottom">
                 {chapterDetail?.previous && (
@@ -101,11 +146,18 @@ const ChapterDetail = () => {
             <br />
             <div className="box comment">
               <h2>Comment</h2>
+              <Button variant="contained" onClick={handleClickOpen}>
+                Leave a Comment
+              </Button>
               <div className="comment__content">
-                <div className="comment__content__nologin">
-                  <h3>Leave a Reply</h3>
-                  <div>You must be logged in to post a comment.</div>
-                </div>
+                {isLoggedIn ? (
+                  comments?.map((comment) => <ItemComment comment={comment} />)
+                ) : (
+                  <div className="comment__content__nologin">
+                    <h3>Leave a Reply</h3>
+                    <div>You must be logged in to post a comment.</div>
+                  </div>
+                )}
               </div>
             </div>
           </>

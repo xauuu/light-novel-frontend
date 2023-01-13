@@ -39,3 +39,23 @@ export const updateChapter = ({ id, data }) => {
     }
   });
 };
+
+export const addComment = ({ data }) => {
+  return apiServices.post("comment/add", { ...data }).then((response) => {
+    if (response.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+};
+
+export const getCommentByChapterId = (id) => {
+  return apiServices.get("comment/" + id).then((response) => {
+    if (response.status === 200) {
+      return response.data.data;
+    } else {
+      return [];
+    }
+  });
+};

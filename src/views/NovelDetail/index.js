@@ -163,7 +163,7 @@ const NovelDetail = () => {
               </div>
             </div>
             <br />
-            <div className="box comment">
+            {/* <div className="box comment">
               <h2>Comment</h2>
               <div className="comment__content">
                 <div className="comment__content__nologin">
@@ -171,7 +171,7 @@ const NovelDetail = () => {
                   <div>You must be logged in to post a comment.</div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         )}
       </Grid>
